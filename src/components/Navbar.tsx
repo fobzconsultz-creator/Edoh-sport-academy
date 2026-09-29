@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { Menu, X, Search, ArrowRight, ChevronDown, Compass, Shield, HelpCircle, Users, Trophy } from 'lucide-react';
+import { Menu, X, Search, ArrowRight, ChevronDown, Compass, Shield, HelpCircle, Users, Trophy, Lock } from 'lucide-react';
 import { CrestLogo } from './CrestLogo';
 
 interface NavbarProps {
   onOpenLookup: () => void;
+  onOpenAdmin?: () => void;
   onSelectPathway?: (pathway: 'minor' | 'senior') => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onOpenLookup }) => {
+export const Navbar: React.FC<NavbarProps> = ({ onOpenLookup, onOpenAdmin }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
@@ -82,12 +83,24 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenLookup }) => {
             {/* Verify Slip Button */}
             <button
               onClick={onOpenLookup}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-neutral-300 hover:text-white bg-[#161616] hover:bg-[#222] border border-[#3A331A] hover:border-[#FFD000]/60 rounded-lg transition-colors whitespace-nowrap shadow-sm"
+              className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-neutral-300 hover:text-white bg-[#161616] hover:bg-[#222] border border-[#3A331A] hover:border-[#FFD000]/60 rounded-lg transition-colors whitespace-nowrap shadow-sm"
               title="Verify registration certificate or search player status"
             >
               <Search className="w-3.5 h-3.5 text-[#FFD000]" />
               <span>Verify Slip</span>
             </button>
+
+            {/* Admin Management Dashboard Button */}
+            {onOpenAdmin && (
+              <button
+                onClick={onOpenAdmin}
+                className="inline-flex items-center gap-1.5 px-2.5 py-2 text-xs font-semibold text-neutral-400 hover:text-[#FFD000] hover:bg-[#1A180E] border border-[#3A331A]/70 hover:border-[#FFD000]/60 rounded-lg transition-colors whitespace-nowrap"
+                title="Management Board & Secretariat Command Portal"
+              >
+                <Lock className="w-3.5 h-3.5 text-[#FFD000]" />
+                <span className="hidden lg:inline">Admin</span>
+              </button>
+            )}
 
             {/* Primary Action: Register Now */}
             <button
@@ -206,6 +219,18 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenLookup }) => {
               <Search className="w-3.5 h-3.5 text-[#FFD000]" />
               Verify Registration Slip
             </button>
+            {onOpenAdmin && (
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onOpenAdmin();
+                }}
+                className="w-full flex items-center justify-center gap-2 px-4 py-2 text-xs font-semibold text-neutral-400 hover:text-[#FFD000] bg-[#14120A] border border-[#3A331A] rounded-lg"
+              >
+                <Lock className="w-3.5 h-3.5 text-[#FFD000]" />
+                Secretariat & Board Admin
+              </button>
+            )}
             <button
               onClick={handleRegisterClick}
               className="w-full flex items-center justify-center gap-2 px-4 py-2.5 text-xs font-bold text-black bg-[#FFD000] rounded-lg"

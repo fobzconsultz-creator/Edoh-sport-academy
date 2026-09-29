@@ -1,8 +1,39 @@
 import React from 'react';
-import { ShieldCheck, Heart } from 'lucide-react';
+import { ShieldCheck, Heart, Lock, Instagram, Twitter, Facebook, Youtube } from 'lucide-react';
 import { CrestLogo } from './CrestLogo';
 
-export const Footer: React.FC = () => {
+interface FooterProps {
+  onOpenAdmin?: () => void;
+}
+
+const SOCIAL_CHANNELS = [
+  {
+    name: 'Instagram',
+    url: 'https://instagram.com/edohsportacademy',
+    icon: Instagram,
+    ariaLabel: 'Follow Edoh Sport Academy on Instagram',
+  },
+  {
+    name: 'Twitter / X',
+    url: 'https://x.com/edohsportacademy',
+    icon: Twitter,
+    ariaLabel: 'Follow Edoh Sport Academy on Twitter/X',
+  },
+  {
+    name: 'Facebook',
+    url: 'https://facebook.com/edohsportacademy',
+    icon: Facebook,
+    ariaLabel: 'Connect with Edoh Sport Academy on Facebook',
+  },
+  {
+    name: 'YouTube',
+    url: 'https://youtube.com/@edohsportacademy',
+    icon: Youtube,
+    ariaLabel: 'Subscribe to Edoh Sport Academy on YouTube',
+  },
+];
+
+export const Footer: React.FC<FooterProps> = ({ onOpenAdmin }) => {
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: 'smooth' });
@@ -23,6 +54,31 @@ export const Footer: React.FC = () => {
             </p>
             <div className="text-xs font-mono font-bold text-[#FFD000] tracking-widest uppercase">
               DISCOVER • DEVELOP • PROMOTE
+            </div>
+
+            {/* Official Social Media Channels */}
+            <div className="pt-2 space-y-2">
+              <div className="text-[11px] font-mono text-neutral-400 uppercase tracking-wider font-semibold">
+                Official Academy Media
+              </div>
+              <div className="flex items-center gap-2.5">
+                {SOCIAL_CHANNELS.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <a
+                      key={item.name}
+                      href={item.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-9 h-9 rounded-xl bg-[#141414] hover:bg-[#1E190A] border border-[#2F2716] hover:border-[#FFD000] text-neutral-400 hover:text-[#FFD000] flex items-center justify-center transition-all shadow-sm group"
+                      aria-label={item.ariaLabel}
+                      title={item.name}
+                    >
+                      <Icon className="w-4 h-4 transition-transform group-hover:scale-110" />
+                    </a>
+                  );
+                })}
+              </div>
             </div>
           </div>
 
@@ -112,8 +168,19 @@ export const Footer: React.FC = () => {
             <span>FIFA Connect RSTP Standards</span>
           </div>
 
-          <div>
-            &copy; {new Date().getFullYear()} Edoh Sport Academy. All rights reserved.
+          <div className="flex items-center gap-4">
+            {onOpenAdmin && (
+              <button
+                type="button"
+                onClick={onOpenAdmin}
+                className="hover:text-[#FFD000] text-neutral-500 transition-colors flex items-center gap-1.5"
+              >
+                <Lock className="w-3 h-3 text-[#FFD000]" />
+                <span>Board Secretariat</span>
+              </button>
+            )}
+            <span>·</span>
+            <span>&copy; {new Date().getFullYear()} Edoh Sport Academy. All rights reserved.</span>
           </div>
         </div>
 
