@@ -1,0 +1,6 @@
+{
+  "name": "Edoh Sport Academy",
+  "description": "Official website and player registration portal for Edoh Sport Academy, Abuja, Nigeria. Discover, Develop, Promote football talent.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
